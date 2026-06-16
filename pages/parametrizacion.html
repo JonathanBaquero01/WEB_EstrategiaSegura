@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parametrizacion - GestorFPQRS</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .secondary-sidebar {
+            width: 220px;
+            background: white;
+            border-right: 1px solid var(--border-color);
+            padding: 16px 0;
+            flex-shrink: 0;
+        }
+        
+        .secondary-nav-section {
+            margin-bottom: 16px;
+        }
+        
+        .secondary-nav-title {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            padding: 8px 16px;
+        }
+        
+        .secondary-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.15s;
+            border-left: 3px solid transparent;
+        }
+        
+        .secondary-nav-item:hover {
+            background: var(--secondary-light);
+            color: var(--text-primary);
+        }
+        
+        .secondary-nav-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .secondary-nav-item svg {
+            flex-shrink: 0;
+        }
+        
+        .param-layout {
+            display: flex;
+            flex: 1;
+        }
+        
+        .param-content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <button class="sidebar-toggle" id="sidebarToggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <aside class="sidebar" id="sidebar"></aside>
+        
+        <main class="main-content">
+            <header class="top-header">
+                <div class="page-title-section">
+                    <div class="breadcrumb">
+                        <span>Parametrizacion</span>
+                        <span>/</span>
+                        <span>Servicios</span>
+                    </div>
+                    <h1>Parametrizacion</h1>
+                    <p>Administracion de catalogos</p>
+                </div>
+            </header>
+            
+            <div class="param-layout">
+                <!-- Secondary Sidebar -->
+                <nav class="secondary-sidebar">
+                    <div class="secondary-nav-section">
+                        <div class="secondary-nav-title">Catalogo de Servicios</div>
+                        <a class="secondary-nav-item active" href="parametrizacion.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                            Servicios
+                        </a>
+                        <a class="secondary-nav-item" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Categorias
+                        </a>
+                        <a class="secondary-nav-item" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Subcategorias
+                        </a>
+                    </div>
+                    
+                    <div class="secondary-nav-section">
+                        <div class="secondary-nav-title">Configuracion de Casos</div>
+                        <a class="secondary-nav-item" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                            Tipos de Caso
+                        </a>
+                        <a class="secondary-nav-item" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            Tipos de Identificacion
+                        </a>
+                        <a class="secondary-nav-item" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            Estados del Caso
+                        </a>
+                    </div>
+                    
+                    <div class="secondary-nav-section">
+                        <div class="secondary-nav-title">Prioridades y SLA</div>
+                        <a class="secondary-nav-item" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                            Prioridades
+                        </a>
+                        <a class="secondary-nav-item" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                            Prioridades por Categoria
+                        </a>
+                    </div>
+                    
+                    <div class="secondary-nav-section">
+                        <div class="secondary-nav-title">Causas y Soluciones</div>
+                        <a class="secondary-nav-item" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                            Tipos de Causa
+                        </a>
+                        <a class="secondary-nav-item" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            Tipos de Solucion
+                        </a>
+                    </div>
+                    
+                    <div class="secondary-nav-section">
+                        <div class="secondary-nav-title">Personas</div>
+                        <a class="secondary-nav-item" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Responsables
+                        </a>
+                        <a class="secondary-nav-item" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            Usuarios del Sistema
+                        </a>
+                    </div>
+                </nav>
+                
+                <!-- Content -->
+                <div class="param-content">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+                        <div>
+                            <h2 style="font-size: 18px; font-weight: 600; margin-bottom: 4px;">Servicios</h2>
+                            <p style="font-size: 12px; color: var(--text-muted);">Productos y servicios ofrecidos por la cooperativa</p>
+                        </div>
+                        <button class="btn btn-primary btn-sm" style="display: flex; align-items: center; gap: 6px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            Crear servicio
+                        </button>
+                    </div>
+                    
+                    <!-- Search and Filters -->
+                    <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+                        <div class="search-bar" style="max-width: 300px;">
+                            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <input type="text" class="form-control" placeholder="Buscar servicio...">
+                        </div>
+                        <div style="display: flex; gap: 4px; margin-left: auto;">
+                            <button class="filter-pill active">Todos</button>
+                            <button class="filter-pill">Activos</button>
+                            <button class="filter-pill">Inactivos</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Table -->
+                    <div class="card">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>NOMBRE</th>
+                                        <th>DESCRIPCION</th>
+                                        <th style="text-align: center;">ESTADO</th>
+                                        <th style="text-align: center;">ACCIONES</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight: 500;">Credito</td>
+                                        <td style="font-size: 12px; color: var(--text-secondary);">Productos de financiamiento para asociados: consumo, vivienda, empresarial</td>
+                                        <td style="text-align: center;"><span class="badge badge-respondido">Activo</span></td>
+                                        <td style="text-align: center;">
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                            </button>
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 500;">Ahorro y Captacion</td>
+                                        <td style="font-size: 12px; color: var(--text-secondary);">Cuentas de ahorro, CDT y depositos a termino</td>
+                                        <td style="text-align: center;"><span class="badge badge-respondido">Activo</span></td>
+                                        <td style="text-align: center;">
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 500;">Canales Digitales</td>
+                                        <td style="font-size: 12px; color: var(--text-secondary);">App movil, portal web, banca virtual y cajeros</td>
+                                        <td style="text-align: center;"><span class="badge badge-respondido">Activo</span></td>
+                                        <td style="text-align: center;">
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 500;">Atencion al Asociado</td>
+                                        <td style="font-size: 12px; color: var(--text-secondary);">Servicio presencial, telefonico y virtual en oficinas</td>
+                                        <td style="text-align: center;"><span class="badge badge-respondido">Activo</span></td>
+                                        <td style="text-align: center;">
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 500;">Pagos y Transferencias</td>
+                                        <td style="font-size: 12px; color: var(--text-secondary);">PSE, pagos de servicios publicos y transferencias interbancarias</td>
+                                        <td style="text-align: center;"><span class="badge badge-respondido">Activo</span></td>
+                                        <td style="text-align: center;">
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 500;">Seguros y Proteccion</td>
+                                        <td style="font-size: 12px; color: var(--text-secondary);">Seguros de vida, hogar, desempleo y proteccion financiera</td>
+                                        <td style="text-align: center;"><span class="badge badge-respondido">Activo</span></td>
+                                        <td style="text-align: center;">
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 500;">Inversiones</td>
+                                        <td style="font-size: 12px; color: var(--text-secondary);">Portafolios de inversion, fondos y rentabilidades</td>
+                                        <td style="text-align: center;"><span class="badge badge-respondido">Activo</span></td>
+                                        <td style="text-align: center;">
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 500;">Centrales de Riesgo</td>
+                                        <td style="font-size: 12px; color: var(--text-secondary);">Reporte, correccion y consulta en centrales de riesgo</td>
+                                        <td style="text-align: center;"><span class="badge badge-respondido">Activo</span></td>
+                                        <td style="text-align: center;">
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 500;">Educacion Cooperativa</td>
+                                        <td style="font-size: 12px; color: var(--text-secondary);">Programas de educacion financiera y cooperativa para asociados</td>
+                                        <td style="text-align: center;"><span class="badge badge-respondido">Activo</span></td>
+                                        <td style="text-align: center;">
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 500;">Vinculacion y Retiro</td>
+                                        <td style="font-size: 12px; color: var(--text-secondary);">Procesos de ingreso, actualizacion de datos y retiro de asociados</td>
+                                        <td style="text-align: center;"><span class="badge badge-respondido">Activo</span></td>
+                                        <td style="text-align: center;">
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 500;">Cartera y Cobranza</td>
+                                        <td style="font-size: 12px; color: var(--text-secondary);">Gestion de mora, acuerdos de pago y reestructuracion</td>
+                                        <td style="text-align: center;"><span class="badge badge-respondido">Activo</span></td>
+                                        <td style="text-align: center;">
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 500;">Certificaciones y Documentos</td>
+                                        <td style="font-size: 12px; color: var(--text-secondary);">Emision de certificados tributarios, extractos y constancias</td>
+                                        <td style="text-align: center;"><span class="badge badge-respondido">Activo</span></td>
+                                        <td style="text-align: center;">
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="padding: 12px 20px; font-size: 12px; color: var(--text-muted); border-top: 1px solid var(--border-light); display: flex; justify-content: space-between;">
+                            <span>Mostrando 12 de 12 registros</span>
+                            <span>12 activos &middot; 0 inactivos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            SidebarModule.render('parametrizacion');
+            SidebarModule.setupMobile();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar caso FPQRS - GestorFPQRS</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .public-layout {
+            min-height: 100vh;
+            background: var(--body-bg);
+        }
+        
+        .public-header {
+            background: var(--sidebar-bg);
+            color: white;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .public-header-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .public-header-brand .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .public-header-brand .logo-text {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .public-header-brand .logo-subtext {
+            font-size: 12px;
+            color: var(--sidebar-text);
+            margin-left: 8px;
+        }
+        
+        .service-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+        }
+        
+        .service-status .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+        }
+        
+        .public-content {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+        
+        .public-content h1 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .public-content .subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .form-section {
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .form-section-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-section-header i {
+            color: var(--text-muted);
+        }
+        
+        .form-section-header h3 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .form-section-header p {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        
+        .form-section-body {
+            padding: 20px;
+        }
+        
+        .public-footer {
+            background: var(--sidebar-bg);
+            color: rgba(255,255,255,0.6);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-top: 40px;
+        }
+        
+        .required {
+            color: var(--danger);
+        }
+    </style>
+</head>
+<body class="public-layout">
+    <header class="public-header">
+        <div class="public-header-brand">
+            <div class="logo-icon">G</div>
+            <span class="logo-text">GestorFPQRS</span>
+            <span class="logo-subtext">CoopFinanzas - Portal de Atencion al Asociado</span>
+        </div>
+        <div class="service-status">
+            <span class="status-dot"></span>
+            <span>Servicio disponible</span>
+        </div>
+    </header>
+    
+    <div class="public-content">
+        <h1>Registrar caso FPQRS</h1>
+        <p class="subtitle">Diligencie el formulario para radicar su Felicitacion, Peticion, Queja, Reclamo o Sugerencia. Los campos marcados con <span class="required">*</span> son obligatorios.</p>
+        
+        <!-- Info Alert -->
+        <div class="alert alert-info" style="margin-bottom: 20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <div>
+                <strong>Informacion importante</strong><br>
+                <span style="font-size: 12px;">Al enviar este formulario, su caso sera radicado y recibira un numero de seguimiento. Nuestro equipo le contactara segun los tiempos de respuesta establecidos por la Superintendencia Financiera de Colombia.</span>
+            </div>
+        </div>
+        
+        <!-- Datos Personales -->
+        <div class="form-section">
+            <div class="form-section-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <div>
+                    <h3>Datos personales</h3>
+                    <p>Informacion del asociado que registra el caso</p>
+                </div>
+            </div>
+            <div class="form-section-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Tipo de identificacion <span class="required">*</span></label>
+                        <select class="form-control">
+                            <option>Seleccionar...</option>
+                            <option>Cedula de Ciudadania</option>
+                            <option>Cedula de Extranjeria</option>
+                            <option>Pasaporte</option>
+                            <option>NIT</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Numero de identificacion <span class="required">*</span></label>
+                        <input type="text" class="form-control" placeholder="Ej: 1082456789">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Nombre completo <span class="required">*</span></label>
+                    <input type="text" class="form-control" placeholder="Nombres y apellidos completos">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Correo electronico <span class="required">*</span></label>
+                        <p class="form-text">Le enviaremos confirmacion y actualizaciones a este correo</p>
+                        <input type="email" class="form-control" placeholder="correo@ejemplo.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Numero de celular <span class="required">*</span></label>
+                        <input type="tel" class="form-control" placeholder="3XXXXXXXXX">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Direccion de residencia</label>
+                    <input type="text" class="form-control" placeholder="Calle, carrera, numero, ciudad">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Datos del Caso -->
+        <div class="form-section">
+            <div class="form-section-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                <div>
+                    <h3>Datos del caso</h3>
+                    <p>Describa detalladamente su solicitud para una atencion mas agil</p>
+                </div>
+            </div>
+            <div class="form-section-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Tipo de caso <span class="required">*</span></label>
+                        <p class="form-text">Que tipo de comunicacion desea radicar?</p>
+                        <select class="form-control">
+                            <option>Seleccionar tipo de caso...</option>
+                            <option>Felicitacion</option>
+                            <option>Peticion</option>
+                            <option>Queja</option>
+                            <option>Reclamo</option>
+                            <option>Sugerencia</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Servicio <span class="required">*</span></label>
+                        <p class="form-text">Sobre que servicio de la cooperativa es su caso?</p>
+                        <select class="form-control">
+                            <option>Seleccionar servicio...</option>
+                            <option>Credito</option>
+                            <option>Ahorro y Captacion</option>
+                            <option>Canales Digitales</option>
+                            <option>Atencion al Asociado</option>
+                            <option>Pagos y Transferencias</option>
+                            <option>Seguros y Proteccion</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Categoria <span class="required">*</span></label>
+                        <p class="form-text">Seleccione primero el servicio para ver las categorias disponibles</p>
+                        <select class="form-control">
+                            <option>Seleccionar categoria...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Subcategoria <span class="required">*</span></label>
+                        <p class="form-text">Seleccione la subcategoria que mejor describe su caso</p>
+                        <select class="form-control">
+                            <option>Seleccionar subcategoria...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Descripcion detallada del caso <span class="required">*</span></label>
+                    <p class="form-text">Incluya fechas, montos, numeros de transaccion y cualquier detalle relevante que facilite la gestion de su caso</p>
+                    <textarea class="form-control" rows="5" placeholder="Describa su caso con el mayor detalle posible. Ej: El dia 3 de mayo realice un pago PSE por valor de $2.350.000 con codigo de transaccion PSE-20260503-8847. El dinero fue debitado de mi cuenta pero no fue acreditado en el banco destino..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Documentos de Soporte -->
+        <div class="form-section">
+            <div class="form-section-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                <div>
+                    <h3>Documentos de soporte</h3>
+                    <p>Adjunte capturas de pantalla, comprobantes u otros documentos que respalden su caso (max. 5 archivos, 5 MB c/u)</p>
+                </div>
+            </div>
+            <div class="form-section-body">
+                <div class="file-upload-zone">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted); margin-bottom: 8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    <p>Arrastre archivos aqui o haga clic para seleccionar</p>
+                    <p class="file-types">PDF, JPG, PNG, DOCX - maximo 5 MB por archivo</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Autorizacion -->
+        <div class="form-section">
+            <div class="form-section-body">
+                <label class="custom-checkbox">
+                    <input type="checkbox">
+                    <span>Autorizo a <strong>CoopFinanzas</strong> para recolectar, almacenar, usar y tratar mis datos personales conforme a la Politica de Tratamiento de Datos Personales y la Ley 1581 de 2012, con el fin de gestionar mi solicitud FPQRS y contactarme durante el proceso de atencion.</span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Submit Section -->
+        <div class="form-section">
+            <div class="form-section-body" style="display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                    <p style="font-size: 14px; font-weight: 500; margin-bottom: 4px;">Listo para radicar su caso?</p>
+                    <p style="font-size: 12px; color: var(--text-muted);">Recibira un numero de radicado y confirmacion por correo electronico</p>
+                </div>
+                <button class="btn btn-primary" style="display: flex; align-items: center; gap: 8px;">
+                    Radicar caso FPQRS
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="public-footer">
+        <span>&copy; 2026 CoopFinanzas. Sistema FPQRS - Normativa SFC Colombia</span>
+        <span>Necesita ayuda? Llame al <strong>01 8000 123 456</strong></span>
+    </footer>
+    
+    <script src="../js/store.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let tCasoSelect, srvSelect, catSelect, subcatSelect;
+            let docTypeInput, docNumInput, nameInput, emailInput, phoneInput, addressInput, descInput;
+            const chkAuth = document.querySelector('input[type="checkbox"]');
+            const submitBtn = document.querySelector('.btn-primary');
+
+            // Find elements intelligently to avoid index shifts
+            document.querySelectorAll('.form-group').forEach(div => {
+                const lbl = div.querySelector('.form-label');
+                if(!lbl) return;
+                const txt = lbl.textContent.toLowerCase();
+                if(txt.includes('tipo de caso')) tCasoSelect = div.querySelector('select');
+                else if(txt.includes('servicio')) srvSelect = div.querySelector('select');
+                else if(txt.includes('subcategoria')) subcatSelect = div.querySelector('select');
+                else if(txt.includes('categoria')) catSelect = div.querySelector('select');
+                else if(txt.includes('tipo de ident')) docTypeInput = div.querySelector('select');
+                else if(txt.includes('numero de ident')) docNumInput = div.querySelector('input');
+                else if(txt.includes('nombre completo')) nameInput = div.querySelector('input');
+                else if(txt.includes('correo')) emailInput = div.querySelector('input');
+                else if(txt.includes('celular')) phoneInput = div.querySelector('input');
+                else if(txt.includes('residencia')) addressInput = div.querySelector('input');
+                else if(txt.includes('descripc')) descInput = div.querySelector('textarea');
+            });
+
+            const services = db.getServices() || [];
+            if(srvSelect) {
+                srvSelect.innerHTML = '<option value="">Seleccionar servicio...</option>' + 
+                    services.map(s => {
+                        const name = typeof s === 'string' ? s : s.name;
+                        return `<option value="${name}">${name}</option>`;
+                    }).join('');
+
+                srvSelect.addEventListener('change', () => {
+                    const srvValue = srvSelect.value;
+                    if (!srvValue) { 
+                        if(catSelect) catSelect.innerHTML = '<option value="">Seleccionar categoria...</option>'; 
+                        if(subcatSelect) subcatSelect.innerHTML = '<option value="">Seleccionar subcategoria...</option>';
+                        return; 
+                    }
+                    if(catSelect) {
+                        const cats = db.getCategoriesForService ? db.getCategoriesForService(srvValue) : [];
+                        catSelect.innerHTML = '<option value="">Seleccionar categoria...</option>' + 
+                            cats.map(c => {
+                                const name = typeof c === 'string' ? c : c.name;
+                                return `<option value="${name}">${name}</option>`;
+                            }).join('');
+                    }
+                });
+            }
+
+            if(catSelect && subcatSelect) {
+                catSelect.addEventListener('change', () => {
+                    if (!catSelect.value) { 
+                        subcatSelect.innerHTML = '<option value="">Seleccionar subcategoria...</option>'; 
+                        return; 
+                    }
+                    const subs = ['Sugerencia de mejora', 'Inconformidad con atención', 'Demora en proceso', 'Error o cobro no reconocido', 'Problema en sistema', 'Otro'];
+                    subcatSelect.innerHTML = '<option value="">Seleccionar subcategoria...</option>' +
+                        subs.map(sb => `<option value="${sb}">${sb}</option>`).join('');
+                });
+            }
+
+            if(submitBtn) {
+                submitBtn.addEventListener('click', () => {
+                    const dType = docTypeInput ? docTypeInput.value : '';
+                    const dNum = docNumInput ? docNumInput.value : '';
+                    const name = nameInput ? nameInput.value : '';
+                    const email = emailInput ? emailInput.value : '';
+                    const tCaso = tCasoSelect ? tCasoSelect.value : '';
+                    const srv = srvSelect ? srvSelect.value : '';
+                    const cat = catSelect ? catSelect.value : '';
+                    const desc = descInput ? descInput.value : '';
+
+                    if(!dNum || !name || !email || !desc || !srv || !cat || tCaso.includes('Seleccionar') || dType.includes('Seleccionar')) {
+                        alert('Por favor complete todos los campos obligatorios (*) validamente.');
+                        return;
+                    }
+
+                    if(chkAuth && !chkAuth.checked) {
+                        alert('Debe aceptar la politica de tratamiento de datos.');
+                        return;
+                    }
+
+                    try {
+                        const newCase = db.createCase(
+                            tCaso, srv, cat, name, dType + ' ' + dNum, email, desc, 'Portal Web'
+                        );
+
+                        alert(`¡Caso radicado exitosamente! Su número de radicado es: ${newCase.id}`);
+                        window.location.href = '../index.html';
+                    } catch(err) {
+                        console.error('Error radicando caso:', err);
+                        alert('Ocurrió un error al radicar el caso.');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

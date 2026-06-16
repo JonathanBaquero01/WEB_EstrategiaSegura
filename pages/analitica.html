@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analitica de Casos - GestorFPQRS</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="app-layout">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <button class="sidebar-toggle" id="sidebarToggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <aside class="sidebar" id="sidebar"></aside>
+        
+        <main class="main-content">
+            <header class="top-header">
+                <div class="page-title-section">
+                    <h1>Analitica de Casos</h1>
+                    <p>Tendencias, cumplimiento SLA, carga operativa y tiempos de resolucion</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary btn-sm">7 dias</button>
+                    <button class="btn btn-secondary btn-sm">15 dias</button>
+                    <button class="btn btn-primary btn-sm">30 dias</button>
+                    <button class="btn btn-secondary btn-sm">90 dias</button>
+                    <div style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid var(--border-color); border-radius: var(--radius-md); background: white; font-size: 12px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        04/07/2026 - 05/07/2026
+                    </div>
+                    <button class="btn btn-primary btn-sm">Aplicar</button>
+                </div>
+            </header>
+            
+            <div class="content-area">
+                <!-- KPI Row -->
+                <div class="kpi-grid" style="grid-template-columns: repeat(5, 1fr); margin-bottom: 20px;">
+                    <div class="kpi-card">
+                        <div class="kpi-card-header">
+                            <div class="kpi-icon blue">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="kpi-value">35</div>
+                        <div class="kpi-label">Total Casos</div>
+                    </div>
+                    <div class="kpi-card" style="border-left: 3px solid var(--success);">
+                        <div class="kpi-card-header">
+                            <div class="kpi-icon green">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            </div>
+                        </div>
+                        <div class="kpi-value" style="color: var(--success);">57%</div>
+                        <div class="kpi-label">Cumplimiento SLA</div>
+                    </div>
+                    <div class="kpi-card" style="border-left: 3px solid var(--primary);">
+                        <div class="kpi-icon blue">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        </div>
+                        <div class="kpi-value" style="color: var(--primary);">55h</div>
+                        <div class="kpi-label">Tiempo Prom. Resolucion</div>
+                    </div>
+                    <div class="kpi-card" style="border-left: 3px solid var(--danger);">
+                        <div class="kpi-icon red">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        </div>
+                        <div class="kpi-value" style="color: var(--danger);">14</div>
+                        <div class="kpi-label">Casos Vencidos</div>
+                    </div>
+                    <div class="kpi-card" style="border-left: 3px solid var(--secondary);">
+                        <div class="kpi-icon gray">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        </div>
+                        <div class="kpi-value">17</div>
+                        <div class="kpi-label">Operadores Activos</div>
+                    </div>
+                </div>
+                
+                <!-- Charts Row 1 -->
+                <div class="chart-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Tendencia de Volumen de Casos</h3>
+                            <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Casos radicados vs. cerrados por periodo</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" style="height: 200px;">
+                                <canvas id="tendenciaVolChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Cumplimiento SLA en el Tiempo</h3>
+                            <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">% de casos cerrados dentro del SLA por periodo</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" style="height: 200px;">
+                                <canvas id="cumplimientoSLAChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts Row 2 + Table -->
+                <div class="chart-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Analitica de Tiempos de Resolucion</h3>
+                            <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Tiempo promedio, minimo y maximo de resolucion (horas)</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" style="height: 250px;">
+                                <canvas id="tiemposChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Mapa de Carga por Operador</h3>
+                            <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Distribucion de casos radicados, cerrados y vencidos por operador</p>
+                        </div>
+                        <div class="card-body" style="padding: 0;">
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Operador</th>
+                                            <th style="text-align: center;">Radicados</th>
+                                            <th style="text-align: center;">Cerrados</th>
+                                            <th style="text-align: center;">En Gestion</th>
+                                            <th style="text-align: center;">Vencidos</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 12px;">Carlos Andres</td>
+                                            <td style="text-align: center;"><span style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600;">5</span></td>
+                                            <td style="text-align: center; color: var(--success); font-weight: 500;">0</td>
+                                            <td style="text-align: center; color: var(--warning);">5</td>
+                                            <td style="text-align: center; color: var(--danger);">2</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px;">Marcela Suarez</td>
+                                            <td style="text-align: center;"><span style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600;">4</span></td>
+                                            <td style="text-align: center; color: var(--success); font-weight: 500;">1</td>
+                                            <td style="text-align: center; color: var(--warning);">3</td>
+                                            <td style="text-align: center; color: var(--danger);">2</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px;">Jorge Ivan</td>
+                                            <td style="text-align: center;"><span style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600;">3</span></td>
+                                            <td style="text-align: center; color: var(--success); font-weight: 500;">0</td>
+                                            <td style="text-align: center; color: var(--warning);">3</td>
+                                            <td style="text-align: center; color: var(--text-muted);">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px;">Ivan Dario</td>
+                                            <td style="text-align: center;"><span style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600;">3</span></td>
+                                            <td style="text-align: center; color: var(--success); font-weight: 500;">0</td>
+                                            <td style="text-align: center; color: var(--warning);">3</td>
+                                            <td style="text-align: center; color: var(--text-muted);">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px;">Valentina Ospina</td>
+                                            <td style="text-align: center;"><span style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600;">3</span></td>
+                                            <td style="text-align: center; color: var(--success); font-weight: 500;">3</td>
+                                            <td style="text-align: center; color: var(--warning);">0</td>
+                                            <td style="text-align: center; color: var(--text-muted);">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px;">Rodrigo Esteban</td>
+                                            <td style="text-align: center;"><span style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600;">2</span></td>
+                                            <td style="text-align: center; color: var(--success); font-weight: 500;">0</td>
+                                            <td style="text-align: center; color: var(--warning);">2</td>
+                                            <td style="text-align: center; color: var(--danger);">2</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px;">Hernando Jose</td>
+                                            <td style="text-align: center;"><span style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600;">2</span></td>
+                                            <td style="text-align: center; color: var(--success); font-weight: 500;">1</td>
+                                            <td style="text-align: center; color: var(--warning);">1</td>
+                                            <td style="text-align: center; color: var(--text-muted);">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px;">Diana Carolina</td>
+                                            <td style="text-align: center;"><span style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600;">2</span></td>
+                                            <td style="text-align: center; color: var(--success); font-weight: 500;">0</td>
+                                            <td style="text-align: center; color: var(--warning);">2</td>
+                                            <td style="text-align: center; color: var(--danger);">1</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px;">Patricia Ines</td>
+                                            <td style="text-align: center;"><span style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600;">2</span></td>
+                                            <td style="text-align: center; color: var(--success); font-weight: 500;">1</td>
+                                            <td style="text-align: center; color: var(--warning);">1</td>
+                                            <td style="text-align: center; color: var(--text-muted);">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px;">Camilo Ernesto</td>
+                                            <td style="text-align: center;"><span style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600;">2</span></td>
+                                            <td style="text-align: center; color: var(--success); font-weight: 500;">0</td>
+                                            <td style="text-align: center; color: var(--warning);">2</td>
+                                            <td style="text-align: center; color: var(--text-muted);">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px;">Luisa Fernanda</td>
+                                            <td style="text-align: center;"><span style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600;">1</span></td>
+                                            <td style="text-align: center; color: var(--success); font-weight: 500;">0</td>
+                                            <td style="text-align: center; color: var(--warning);">1</td>
+                                            <td style="text-align: center; color: var(--danger);">1</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px;">Claudia Esperanza</td>
+                                            <td style="text-align: center;"><span style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600;">1</span></td>
+                                            <td style="text-align: center; color: var(--success); font-weight: 500;">0</td>
+                                            <td style="text-align: center; color: var(--warning);">1</td>
+                                            <td style="text-align: center; color: var(--text-muted);">0</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="padding: 10px 16px; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border-light);">
+                                Intensidad radicados: 
+                                <span style="display: inline-flex; gap: 3px; margin-left: 6px;">
+                                    <span style="width: 10px; height: 10px; background: #dbeafe; border-radius: 2px;"></span>
+                                    <span style="width: 10px; height: 10px; background: #93c5fd; border-radius: 2px;"></span>
+                                    <span style="width: 10px; height: 10px; background: #3b82f6; border-radius: 2px;"></span>
+                                    Bajo - Alto
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            SidebarModule.render('analitica');
+            SidebarModule.setupMobile();
+            
+            const commonOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { font: { size: 11 }, usePointStyle: true, padding: 12 }
+                    }
+                },
+                scales: {
+                    x: { grid: { display: false }, ticks: { font: { size: 9 } } },
+                    y: { grid: { color: '#f3f4f6' }, ticks: { font: { size: 10 } } }
+                }
+            };
+            
+            // Tendencia de Volumen
+            const labels = ['07/04', '11/04', '13/04', '15/04', '17/04', '19/04', '21/04', '23/04', '25/04', '27/04', '29/04', '01/05', '03/05', '05/05', '07/05', '11/05', '13/05', '15/05', '17/05', '19/05', '21/05', '23/05', '25/05', '27/05', '29/05', '31/05', '04/06'];
+            new Chart(document.getElementById('tendenciaVolChart'), {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'Radicados', data: [1,0,1,0,1,2,0,1,2,1,0,1,2,5,8,3,2,1,0,1,0,2,1,0,1,2,1], borderColor: '#3b82f6', backgroundColor: 'transparent', tension: 0.3, pointRadius: 2, borderWidth: 2 },
+                        { label: 'Cerrados', data: [0,1,0,1,0,0,1,0,0,1,2,0,1,0,1,2,1,0,1,0,1,0,0,1,0,1,0], borderColor: '#10b981', backgroundColor: 'transparent', tension: 0.3, pointRadius: 2, borderWidth: 2 }
+                    ]
+                },
+                options: commonOptions
+            });
+            
+            // Cumplimiento SLA
+            new Chart(document.getElementById('cumplimientoSLAChart'), {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'Cumplimiento %', data: [0,100,0,100,0,0,100,0,0,100,100,0,100,0,100,50,100,0,100,0,100,0,0,100,0,100,0], borderColor: '#10b981', backgroundColor: 'transparent', tension: 0.3, pointRadius: 0, borderWidth: 2 },
+                        { label: 'Incumplimiento %', data: [100,0,100,0,100,100,0,100,100,0,0,100,0,100,0,50,0,100,0,100,0,100,100,0,100,0,100], borderColor: '#ef4444', backgroundColor: 'transparent', tension: 0.3, pointRadius: 0, borderWidth: 2, borderDash: [5,5] }
+                    ]
+                },
+                options: {
+                    ...commonOptions,
+                    scales: {
+                        ...commonOptions.scales,
+                        y: { ...commonOptions.scales.y, max: 100, ticks: { callback: v => v + '%', font: { size: 10 } } }
+                    }
+                }
+            });
+            
+            // Tiempos de Resolucion (Grouped Bar)
+            new Chart(document.getElementById('tiemposChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['07/04', '11/04', '13/04', '17/04', '19/04', '21/04', '23/04', '25/04', '27/04', '01/05', '05/05', '09/05', '11/05', '15/05', '17/05', '19/05', '21/05', '23/05', '25/05', '27/05', '29/05', '31/05', '04/06'],
+                    datasets: [
+                        { label: 'Promedio (h)', data: [0,48,0,72,0,0,55,0,0,72,0,48,0,65,0,55,0,70,0,0,60,0,50], backgroundColor: '#3b82f6', borderRadius: 3 },
+                        { label: 'Minimo (h)', data: [0,48,0,72,0,0,55,0,0,72,0,48,0,65,0,55,0,70,0,0,60,0,50], backgroundColor: '#93c5fd', borderRadius: 3 },
+                        { label: 'Maximo (h)', data: [0,48,0,72,0,0,55,0,0,72,0,48,0,65,0,55,0,70,0,0,60,0,50], backgroundColor: '#1e40af', borderRadius: 3 }
+                    ]
+                },
+                options: {
+                    ...commonOptions,
+                    scales: {
+                        x: { grid: { display: false }, ticks: { font: { size: 8 }, maxRotation: 45 } },
+                        y: { grid: { color: '#f3f4f6' }, ticks: { callback: v => v + 'h', font: { size: 10 } } }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parametros Alternativos - GestorFPQRS</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div class="app-layout">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <button class="sidebar-toggle" id="sidebarToggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <aside class="sidebar" id="sidebar"></aside>
+        
+        <main class="main-content">
+            <header class="top-header">
+                <div class="page-title-section">
+                    <h1 style="display: flex; align-items: center; gap: 10px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        Parametros Alternativos
+                    </h1>
+                    <p>Modulo experimental - Simulacion de modelos de asignacion y prioridades en casos FPQRS</p>
+                </div>
+                <div class="header-actions">
+                    <span style="background: var(--warning-light); color: #92400e; padding: 4px 12px; border-radius: var(--radius-md); font-size: 12px; display: flex; align-items: center; gap: 6px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        Solo simulacion - no afecta datos reales
+                    </span>
+                </div>
+            </header>
+            
+            <div class="content-area">
+                <!-- Tabs -->
+                <div class="tabs-nav" style="margin-bottom: 20px;">
+                    <button class="tab-btn active" data-tab="asignacion">Asignacion de responsables</button>
+                    <button class="tab-btn" data-tab="prioridades">Configuracion de prioridades</button>
+                </div>
+                
+                <!-- Regla de asignacion -->
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-body">
+                        <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; font-size: 14px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                            Regla de asignacion de casos
+                        </h3>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <label class="radio-card selected">
+                                <div class="radio-card-header">
+                                    <input type="radio" name="asignacion" value="categoria" checked>
+                                    <span class="radio-card-title">Asignar por responsable de la categoria</span>
+                                </div>
+                                <p class="radio-card-desc">El caso se asigna al responsable principal de la categoria. Se notifican los usuarios de la categoria y opcionalmente los de la subcategoria.</p>
+                            </label>
+                            
+                            <label class="radio-card">
+                                <div class="radio-card-header">
+                                    <input type="radio" name="asignacion" value="subcategoria">
+                                    <span class="radio-card-title">Asignar por responsable de la subcategoria</span>
+                                </div>
+                                <p class="radio-card-desc">El caso se asigna al responsable principal de la subcategoria. Se notifican los usuarios de la subcategoria y opcionalmente los de la categoria.</p>
+                            </label>
+                        </div>
+                        
+                        <div class="alert alert-info" style="margin-top: 16px; margin-bottom: 0;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                            Regla activa: <strong>Asignacion por responsable de la categoria</strong>. Esta regla se usara en el simulador de creacion de caso.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modalidad de prioridades -->
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-body">
+                        <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; font-size: 14px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                            Modalidad de prioridades activa
+                        </h3>
+                        
+                        <div style="display: flex; gap: 12px; margin-bottom: 12px;">
+                            <button class="filter-pill active">Prioridades por Categoria</button>
+                            <button class="filter-pill">Prioridades por Subcategoria</button>
+                        </div>
+                        
+                        <p style="font-size: 12px; color: var(--text-muted);">Esta modalidad determina que prioridades se usan al simular la creacion de un caso. Configure las prioridades en los formularios de categoria o subcategoria.</p>
+                    </div>
+                </div>
+                
+                <!-- Categorias Table -->
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="display: flex; align-items: center; gap: 8px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Categorias
+                            <span style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600;">6</span>
+                        </h3>
+                        <button class="btn btn-primary btn-sm" style="display: flex; align-items: center; gap: 6px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            Nueva categoria
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>CATEGORIA</th>
+                                    <th>SERVICIO</th>
+                                    <th>RESPONSABLE PRINCIPAL</th>
+                                    <th>PRIORIDADES</th>
+                                    <th>NOTIFICADOS</th>
+                                    <th>ACCIONES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-weight: 500;">Credito de Consumo<br><span style="font-size: 11px; color: var(--text-muted); font-weight: normal;">Creditos personales y libre inversion</span></td>
+                                    <td>Credito</td>
+                                    <td><span style="color: var(--primary); font-weight: 600;">V</span> Valentina Ospina Rios</td>
+                                    <td><span class="badge badge-pendiente">Normal</span> <span class="badge badge-priority alta">Alta</span> <span class="badge-priority critica">Critica</span><br><span style="font-size: 10px; color: var(--text-muted);">Defecto: Normal - 48h</span></td>
+                                    <td style="color: var(--text-muted);">-</td>
+                                    <td>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">Credito de Vivienda<br><span style="font-size: 11px; color: var(--text-muted); font-weight: normal;">Financiamiento de vivienda y ...</span></td>
+                                    <td>Credito</td>
+                                    <td><span style="color: var(--primary); font-weight: 600;">C</span> Carlos Andres Moreno</td>
+                                    <td><span class="badge badge-pendiente">Normal</span> <span class="badge badge-priority alta">Alta</span> <span class="badge-priority critica">Critica</span><br><span style="font-size: 10px; color: var(--text-muted);">Defecto: Normal - 48h</span></td>
+                                    <td style="color: var(--text-muted);">-</td>
+                                    <td>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">Credito Empresarial<br><span style="font-size: 11px; color: var(--text-muted); font-weight: normal;">Lineas de credito para microe...</span></td>
+                                    <td>Credito</td>
+                                    <td><span style="color: var(--primary); font-weight: 600;">L</span> Luisa Fernanda Vargas</td>
+                                    <td><span class="badge badge-pendiente">Normal</span> <span class="badge badge-priority alta">Alta</span> <span class="badge-priority critica">Critica</span><br><span style="font-size: 10px; color: var(--text-muted);">Defecto: Normal - 48h</span></td>
+                                    <td style="color: var(--text-muted);">-</td>
+                                    <td>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">Credito Educativo<br><span style="font-size: 11px; color: var(--text-muted); font-weight: normal;">Financiamiento de estudios y ...</span></td>
+                                    <td>Credito</td>
+                                    <td><span style="color: var(--primary); font-weight: 600;">J</span> Jorge Ivan Castillo</td>
+                                    <td><span class="badge badge-pendiente">Normal</span> <span class="badge badge-priority alta">Alta</span> <span class="badge-priority critica">Critica</span><br><span style="font-size: 10px; color: var(--text-muted);">Defecto: Normal - 48h</span></td>
+                                    <td style="color: var(--text-muted);">-</td>
+                                    <td>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">Cuenta de Ahorro<br><span style="font-size: 11px; color: var(--text-muted); font-weight: normal;">Gestion de cuentas de ahorro ...</span></td>
+                                    <td>Ahorro y Captacion</td>
+                                    <td><span style="color: var(--primary); font-weight: 600;">M</span> Marcela Suarez Pena</td>
+                                    <td><span class="badge badge-pendiente">Normal</span> <span class="badge badge-priority alta">Alta</span> <span class="badge-priority critica">Critica</span><br><span style="font-size: 10px; color: var(--text-muted);">Defecto: Normal - 48h</span></td>
+                                    <td style="color: var(--text-muted);">-</td>
+                                    <td>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">CDT<br><span style="font-size: 11px; color: var(--text-muted); font-weight: normal;">Certificados de deposito a ter...</span></td>
+                                    <td>Ahorro y Captacion</td>
+                                    <td><span style="color: var(--primary); font-weight: 600;">A</span> Andres Felipe Gomez</td>
+                                    <td><span class="badge badge-pendiente">Normal</span> <span class="badge badge-priority alta">Alta</span> <span class="badge-priority critica">Critica</span><br><span style="font-size: 10px; color: var(--text-muted);">Defecto: Normal - 48h</span></td>
+                                    <td style="color: var(--text-muted);">-</td>
+                                    <td>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Subcategorias Table -->
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="display: flex; align-items: center; gap: 8px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Subcategorias
+                            <span style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600;">8</span>
+                        </h3>
+                        <button class="btn btn-primary btn-sm" style="display: flex; align-items: center; gap: 6px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            Nueva subcategoria
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>SUBCATEGORIA</th>
+                                    <th>CATEGORIA PADRE</th>
+                                    <th>RESPONSABLE PRINCIPAL</th>
+                                    <th>PRIORIDADES</th>
+                                    <th>NOTIFICADOS</th>
+                                    <th>ACCIONES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-weight: 500;">Descuento no reconocido en cuota<br><span style="font-size: 11px; color: var(--text-muted); font-weight: normal;">Subcategoria experimental: D...</span></td>
+                                    <td>Credito de Consumo</td>
+                                    <td><span style="color: var(--primary); font-weight: 600;">J</span> Jorge Ivan Castillo</td>
+                                    <td><span class="badge-priority baja">Baja</span> <span class="badge badge-priority normal">Media</span> <span class="badge badge-priority alta">Alta</span><br><span style="font-size: 10px; color: var(--text-muted);">Defecto: Media - 72h</span></td>
+                                    <td style="color: var(--text-muted);">-</td>
+                                    <td>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">Certificado de credito vigente<br><span style="font-size: 11px; color: var(--text-muted); font-weight: normal;">Subcategoria experimental: C...</span></td>
+                                    <td>Credito de Consumo</td>
+                                    <td><span style="color: var(--primary); font-weight: 600;">M</span> Marcela Suarez Pena</td>
+                                    <td><span class="badge badge-pendiente">Normal</span> <span class="badge badge-priority alta">Urgente</span><br><span style="font-size: 10px; color: var(--text-muted);">Defecto: Normal - 48h</span></td>
+                                    <td style="color: var(--text-muted);">-</td>
+                                    <td>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">Liquidacion anticipada de credito<br><span style="font-size: 11px; color: var(--text-muted); font-weight: normal;">Subcategoria experimental: L...</span></td>
+                                    <td>Credito de Consumo</td>
+                                    <td><span style="color: var(--primary); font-weight: 600;">A</span> Andres Felipe Gomez</td>
+                                    <td><span class="badge badge-pendiente">Normal</span> <span class="badge badge-priority alta">Urgente</span><br><span style="font-size: 10px; color: var(--text-muted);">Defecto: Normal - 48h</span></td>
+                                    <td style="color: var(--text-muted);">-</td>
+                                    <td>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+                                        <button style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Simulador -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 style="font-size: 14px;">Simulador de creacion de caso</h3>
+                        </div>
+                        <div class="card-body">
+                            <h4 style="font-size: 12px; font-weight: 600; margin-bottom: 16px;">Datos del caso simulado</h4>
+                            <div class="form-group">
+                                <label class="form-label">Servicio</label>
+                                <select class="form-control">
+                                    <option>Seleccionar servicio (opcional)...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Categoria <span class="required">*</span></label>
+                                <select class="form-control">
+                                    <option>Seleccionar categoria...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Subcategoria <span class="required">*</span></label>
+                                <select class="form-control">
+                                    <option>Seleccionar subcategoria...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Tipo de caso <span class="required">*</span></label>
+                                <select class="form-control">
+                                    <option>Seleccionar tipo...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Descripcion</label>
+                                <textarea class="form-control" rows="3" placeholder="Descripcion del caso simulado..."></textarea>
+                            </div>
+                            <button class="btn btn-primary w-100" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                Simular asignacion
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 style="font-size: 14px;">Resultado de la simulacion</h3>
+                        </div>
+                        <div class="card-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 300px; text-align: center;">
+                            <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--secondary-light); display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted);"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                            </div>
+                            <p style="font-size: 14px; font-weight: 500; color: var(--text-secondary); margin-bottom: 4px;">Sin simulacion aun</p>
+                            <p style="font-size: 12px; color: var(--text-muted);">Complete el formulario y presione "Simular asignacion"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            SidebarModule.render('parametros-alt');
+            SidebarModule.setupMobile();
+            
+            document.querySelectorAll('.radio-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const name = this.querySelector('input')?.name;
+                    if (name) {
+                        document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                            r.closest('.radio-card').classList.remove('selected');
+                        });
+                    }
+                    this.classList.add('selected');
+                    const radio = this.querySelector('input[type="radio"]');
+                    if (radio) radio.checked = true;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

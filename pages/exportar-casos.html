@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exportar Casos - GestorFPQRS</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div class="app-layout">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <button class="sidebar-toggle" id="sidebarToggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <aside class="sidebar" id="sidebar"></aside>
+        
+        <main class="main-content">
+            <header class="top-header">
+                <div class="page-title-section">
+                    <h1>Exportacion de Reportes</h1>
+                    <p>Genera reportes descargables en CSV, Excel o PDF con formato institucional</p>
+                </div>
+                <div class="header-actions">
+                    <div style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid var(--border-color); border-radius: var(--radius-md); background: white; font-size: 12px; color: var(--text-secondary);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        Datos al 07/05/2026
+                    </div>
+                </div>
+            </header>
+            
+            <div class="content-area">
+                <!-- Report Type Cards -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;">
+                    <div class="card radio-card selected" style="cursor: pointer;">
+                        <div class="radio-card-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                            <span class="radio-card-title">Bandeja de Casos</span>
+                        </div>
+                        <p class="radio-card-desc">Exporta resultados filtrados de la bandeja de casos FPQRS</p>
+                    </div>
+                    
+                    <div class="card radio-card" style="cursor: pointer;">
+                        <div class="radio-card-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                            <span class="radio-card-title">Detalle de Caso</span>
+                        </div>
+                        <p class="radio-card-desc">Exporta el expediente completo de un caso con su linea de tiempo</p>
+                    </div>
+                    
+                    <div class="card radio-card" style="cursor: pointer;">
+                        <div class="radio-card-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-muted);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            <span class="radio-card-title">Auditoria y Trazabilidad</span>
+                        </div>
+                        <p class="radio-card-desc">Exporta el registro de auditoria con filtros aplicados</p>
+                    </div>
+                </div>
+                
+                <!-- Main Content Grid -->
+                <div style="display: grid; grid-template-columns: 1fr 320px; gap: 20px;">
+                    <!-- Filters and Preview -->
+                    <div>
+                        <div class="card">
+                            <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3 style="display: flex; align-items: center; gap: 8px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                                    Filtros de Bandeja
+                                    <span id="expFilterCount" style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600;">... casos</span>
+                                </h3>
+                                <button style="background: none; border: none; color: var(--text-muted); cursor: pointer;" id="btnResetExportFilters">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <!-- Filters Grid -->
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label class="form-label" style="display: flex; align-items: center; gap: 6px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                            Fecha desde
+                                        </label>
+                                        <input type="date" class="form-control" id="expDateFrom">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label class="form-label" style="display: flex; align-items: center; gap: 6px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                            Fecha hasta
+                                        </label>
+                                        <input type="date" class="form-control" id="expDateTo">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label class="form-label" style="display: flex; align-items: center; gap: 6px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                                            Servicio
+                                        </label>
+                                        <select class="form-control" id="expServicio">
+                                            <option value="">Todos</option>
+                                            <option value="Crédito">Crédito</option>
+                                            <option value="Ahorro y Captación">Ahorro y Captación</option>
+                                            <option value="Pagos y Transferencias">Pagos y Transferencias</option>
+                                            <option value="Canales Digitales">Canales Digitales</option>
+                                            <option value="Atención al Asociado">Atención al Asociado</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label class="form-label" style="display: flex; align-items: center; gap: 6px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                            Grupo / Area de gestion
+                                        </label>
+                                        <select class="form-control" id="expGrupo">
+                                            <option value="">Todos</option>
+                                            <option value="Cartera y Crédito">Cartera y Crédito</option>
+                                            <option value="Operaciones Financieras">Operaciones Financieras</option>
+                                            <option value="Red de Oficinas">Red de Oficinas</option>
+                                            <option value="Tecnología e Innovación">Tecnología e Innovación</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label class="form-label" style="display: flex; align-items: center; gap: 6px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                                            Estado del caso
+                                        </label>
+                                        <select class="form-control" id="expEstado">
+                                            <option value="">Todos</option>
+                                            <option value="Radicado">Radicado</option>
+                                            <option value="En Gestión">En Gestión</option>
+                                            <option value="Cerrado">Cerrado</option>
+                                            <option value="Anulado">Anulado</option>
+                                            <option value="Respondido">Respondido</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label class="form-label" style="display: flex; align-items: center; gap: 6px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                            Prioridad
+                                        </label>
+                                        <select class="form-control" id="expPrioridad">
+                                            <option value="">Todas</option>
+                                            <option value="Baja">Baja</option>
+                                            <option value="Normal">Normal</option>
+                                            <option value="Alta">Alta</option>
+                                            <option value="Crítica">Crítica</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label class="form-label" style="display: flex; align-items: center; gap: 6px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                            Operador responsable
+                                        </label>
+                                        <select class="form-control" id="expResponsable">
+                                            <option value="">Todos</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0;">
+                                        <label class="form-label" style="display: flex; align-items: center; gap: 6px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                                            Tipo de caso
+                                        </label>
+                                        <select class="form-control" id="expTipo">
+                                            <option value="">Todos</option>
+                                            <option value="Petición">Petición</option>
+                                            <option value="Queja">Queja</option>
+                                            <option value="Reclamo">Reclamo</option>
+                                            <option value="Sugerencia">Sugerencia</option>
+                                            <option value="Felicitación">Felicitación</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0; display: none;">
+                                        <!-- Oculto intencionalmente -->
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0; display: none;">
+                                        <!-- Oculto intencionalmente -->
+                                    </div>
+                                </div>
+                                
+                                <hr style="border: none; border-top: 1px solid var(--border-light); margin: 20px 0;">
+                                
+                                <!-- Preview -->
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                    <h4 style="font-size: 13px; font-weight: 600;">Vista previa - <span id="previewTitleCount">...</span> casos</h4>
+                                    <span style="font-size: 11px; color: var(--text-muted);" id="previewCountText">Cargando...</span>
+                                </div>
+                                <div class="table-container">
+                                    <table class="data-table" id="exportTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Radicado</th>
+                                                <th>Servicio</th>
+                                                <th>Tipo</th>
+                                                <th>Estado</th>
+                                                <th>Grupo/Area</th>
+                                                <th>SLA</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="expPreviewTbody">
+                                            <tr><td colspan="6" style="text-align: center; padding: 20px;">Cargando vista previa...</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column - Export Options -->
+                    <div>
+                        <div class="card" style="margin-bottom: 16px;">
+                            <div class="card-body">
+                                <h4 style="font-size: 13px; font-weight: 600; margin-bottom: 12px;">Formato de exportacion</h4>
+                                
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <label class="radio-card" style="padding: 12px;">
+                                        <div class="radio-card-header">
+                                            <input type="radio" name="format" value="csv">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                                            <span class="radio-card-title">CSV</span>
+                                        </div>
+                                        <p class="radio-card-desc">Texto separado por comas, compatible con Excel</p>
+                                    </label>
+                                    
+                                    <label class="radio-card selected" style="padding: 12px;">
+                                        <div class="radio-card-header">
+                                            <input type="radio" name="format" value="xlsx" checked>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--success);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                                            <span class="radio-card-title">Excel (.xlsx)</span>
+                                        </div>
+                                        <p class="radio-card-desc">Hoja de calculo con formato y colores</p>
+                                    </label>
+                                    
+                                    <label class="radio-card" style="padding: 12px;">
+                                        <div class="radio-card-header">
+                                            <input type="radio" name="format" value="pdf">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--danger);"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                                            <span class="radio-card-title">PDF</span>
+                                        </div>
+                                        <p class="radio-card-desc">Reporte formateado con marca institucional</p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Resumen -->
+                        <div class="card" style="margin-bottom: 16px;">
+                            <div class="card-body">
+                                <h4 style="font-size: 13px; font-weight: 600; margin-bottom: 12px;">Resumen del reporte</h4>
+                                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px;">
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <span style="color: var(--text-secondary);">Tipo</span>
+                                        <span style="font-weight: 500;" id="expResumenTipo">Bandeja de Casos</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <span style="color: var(--text-secondary);">Registros</span>
+                                        <span style="font-weight: 500;" id="expResumenTotal">... registros</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <span style="color: var(--text-secondary);">Formato</span>
+                                        <span style="font-weight: 500;" id="expResumenFormat">EXCEL (.XLSX)</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <span style="color: var(--text-secondary);">Marca</span>
+                                        <span style="font-weight: 500;">GestorFPQRS</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary w-100" id="btnExportarFinal" style="margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            Exportar <span id="btnExportarCount">...</span> registros
+                        </button>
+                        
+                        <div class="alert alert-warning" style="font-size: 11px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                            Los reportes exportados son documentos confidenciales para uso interno. Cumple con los requisitos de trazabilidad de la SFC.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="../js/store.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/app-exportar.js"></script>
+</body>
+</html>

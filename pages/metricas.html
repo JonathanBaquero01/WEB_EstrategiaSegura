@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metricas y Rendimiento - GestorFPQRS</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="app-layout">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <button class="sidebar-toggle" id="sidebarToggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <aside class="sidebar" id="sidebar"></aside>
+        
+        <main class="main-content">
+            <header class="top-header">
+                <div class="page-title-section">
+                    <h1 style="display: flex; align-items: center; gap: 10px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                        Metricas y Rendimiento
+                    </h1>
+                    <p>Indicadores operativos del sistema FPQRS</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        Diario
+                    </button>
+                    <button class="btn btn-primary btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        Semanal
+                    </button>
+                </div>
+            </header>
+            
+            <div class="content-area">
+                <!-- KPI Row 1 -->
+                <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 20px;">
+                    <div class="kpi-card">
+                        <div class="kpi-card-header">
+                            <div class="kpi-icon blue">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                            </div>
+                            <span class="kpi-trend up">+350%</span>
+                        </div>
+                        <div class="kpi-value">18</div>
+                        <div class="kpi-label">Volumen de Casos</div>
+                        <div class="kpi-sublabel">Casos radicados esta semana</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-card-header">
+                            <div class="kpi-icon green">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            </div>
+                            <span class="kpi-trend down">--%</span>
+                        </div>
+                        <div class="kpi-value" style="color: var(--success);">0%</div>
+                        <div class="kpi-label">Cumplimiento SLA</div>
+                        <div class="kpi-sublabel">Casos cerrados dentro del SLA</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-card-header">
+                            <div class="kpi-icon yellow">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            </div>
+                            <span class="kpi-trend up">+100%</span>
+                        </div>
+                        <div class="kpi-value" style="color: var(--warning);">0h</div>
+                        <div class="kpi-label">Tiempo Promedio Resolucion</div>
+                        <div class="kpi-sublabel">Horas promedio hasta cierre</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-card-header">
+                            <div class="kpi-icon gray">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            </div>
+                            <span class="kpi-trend down">-100%</span>
+                        </div>
+                        <div class="kpi-value" style="color: var(--text-primary);">0</div>
+                        <div class="kpi-label">Productividad Operadores</div>
+                        <div class="kpi-sublabel">Casos cerrados por operador</div>
+                    </div>
+                </div>
+                
+                <!-- Charts Row 1 -->
+                <div class="chart-grid">
+                    <div class="card">
+                        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h3>Tendencia de Volumen</h3>
+                                <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Casos radicados vs cerrados</p>
+                            </div>
+                            <span style="font-size: 11px; color: var(--text-muted);">ULTIMAS 7 SEMANAS</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="tendenciaChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Cumplimiento SLA por Prioridad</h3>
+                                <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">% de casos cerrados dentro del SLA</p>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="slaPrioridadChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts Row 2 -->
+                <div class="chart-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Productividad por Operador</h3>
+                                <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Casos cerrados y en gestion por responsable</p>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="productividadChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Distribucion por Tipo</h3>
+                                <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Total de casos por tipo FPQRS</p>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="distribucionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts Row 3 -->
+                <div class="chart-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Distribucion por Estado</h3>
+                                <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Casos activos por estado actual</p>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="estadoChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3>Tiempo de Resolucion</h3>
+                                <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Horas promedio por periodo</p>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="resolucionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Resumen por Operador Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3>Resumen por Operador</h3>
+                            <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Detalle de gestion por responsable</p>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Operador</th>
+                                    <th>Area</th>
+                                    <th style="text-align: center;">Total Asignados</th>
+                                    <th style="text-align: center;">Cerrados</th>
+                                    <th style="text-align: center;">En Gestion</th>
+                                    <th style="text-align: center;">% Cierre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="font-size: 10px; color: var(--text-muted);">VO</span>
+                                            Valentina Ospina
+                                        </div>
+                                    </td>
+                                    <td style="font-size: 12px; color: var(--text-secondary);">Servicio al Asociado</td>
+                                    <td style="text-align: center;">11</td>
+                                    <td style="text-align: center;">11</td>
+                                    <td style="text-align: center;"><span style="color: var(--success);">0</span></td>
+                                    <td style="text-align: center;">
+                                        <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                            <div class="progress-bar-container" style="width: 60px;">
+                                                <div class="progress-bar-fill green" style="width: 100%;"></div>
+                                            </div>
+                                            <span style="font-size: 11px; font-weight: 600; color: var(--success);">100%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="font-size: 10px; color: var(--text-muted);">MS</span>
+                                            Marcela Suarez
+                                        </div>
+                                    </td>
+                                    <td style="font-size: 12px; color: var(--text-secondary);">Captacion y Ahorro</td>
+                                    <td style="text-align: center;">23</td>
+                                    <td style="text-align: center;">11</td>
+                                    <td style="text-align: center;"><span style="color: var(--warning);">12</span></td>
+                                    <td style="text-align: center;">
+                                        <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                            <div class="progress-bar-container" style="width: 60px;">
+                                                <div class="progress-bar-fill yellow" style="width: 48%;"></div>
+                                            </div>
+                                            <span style="font-size: 11px; font-weight: 600; color: var(--warning);">48%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="font-size: 10px; color: var(--text-muted);">CA</span>
+                                            Carlos Andres
+                                        </div>
+                                    </td>
+                                    <td style="font-size: 12px; color: var(--text-secondary);">Cartera y Credito</td>
+                                    <td style="text-align: center;">23</td>
+                                    <td style="text-align: center;">7</td>
+                                    <td style="text-align: center;"><span style="color: var(--danger);">16</span></td>
+                                    <td style="text-align: center;">
+                                        <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                            <div class="progress-bar-container" style="width: 60px;">
+                                                <div class="progress-bar-fill red" style="width: 30%;"></div>
+                                            </div>
+                                            <span style="font-size: 11px; font-weight: 600; color: var(--danger);">30%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="font-size: 10px; color: var(--text-muted);">HJ</span>
+                                            Hernando Jose
+                                        </div>
+                                    </td>
+                                    <td style="font-size: 12px; color: var(--text-secondary);">Red de Oficinas</td>
+                                    <td style="text-align: center;">8</td>
+                                    <td style="text-align: center;">7</td>
+                                    <td style="text-align: center;"><span style="color: var(--success);">1</span></td>
+                                    <td style="text-align: center;">
+                                        <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                            <div class="progress-bar-container" style="width: 60px;">
+                                                <div class="progress-bar-fill green" style="width: 88%;"></div>
+                                            </div>
+                                            <span style="font-size: 11px; font-weight: 600; color: var(--success);">88%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="font-size: 10px; color: var(--text-muted);">PI</span>
+                                            Patricia Ines
+                                        </div>
+                                    </td>
+                                    <td style="font-size: 12px; color: var(--text-secondary);">Servicio al Asociado</td>
+                                    <td style="text-align: center;">9</td>
+                                    <td style="text-align: center;">7</td>
+                                    <td style="text-align: center;"><span style="color: var(--warning);">2</span></td>
+                                    <td style="text-align: center;">
+                                        <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                            <div class="progress-bar-container" style="width: 60px;">
+                                                <div class="progress-bar-fill green" style="width: 78%;"></div>
+                                            </div>
+                                            <span style="font-size: 11px; font-weight: 600; color: var(--success);">78%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="font-size: 10px; color: var(--text-muted);">BE</span>
+                                            Beatriz Elena
+                                        </div>
+                                    </td>
+                                    <td style="font-size: 12px; color: var(--text-secondary);">Contabilidad</td>
+                                    <td style="text-align: center;">5</td>
+                                    <td style="text-align: center;">5</td>
+                                    <td style="text-align: center;"><span style="color: var(--success);">0</span></td>
+                                    <td style="text-align: center;">
+                                        <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                            <div class="progress-bar-container" style="width: 60px;">
+                                                <div class="progress-bar-fill green" style="width: 100%;"></div>
+                                            </div>
+                                            <span style="font-size: 11px; font-weight: 600; color: var(--success);">100%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="font-size: 10px; color: var(--text-muted);">Ed</span>
+                                            Esperanza del
+                                        </div>
+                                    </td>
+                                    <td style="font-size: 12px; color: var(--text-secondary);">Cartera y Credito</td>
+                                    <td style="text-align: center;">12</td>
+                                    <td style="text-align: center;">5</td>
+                                    <td style="text-align: center;"><span style="color: var(--warning);">7</span></td>
+                                    <td style="text-align: center;">
+                                        <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                            <div class="progress-bar-container" style="width: 60px;">
+                                                <div class="progress-bar-fill yellow" style="width: 42%;"></div>
+                                            </div>
+                                            <span style="font-size: 11px; font-weight: 600; color: var(--warning);">42%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="font-size: 10px; color: var(--text-muted);">RE</span>
+                                            Rodrigo Esteban
+                                        </div>
+                                    </td>
+                                    <td style="font-size: 12px; color: var(--text-secondary);">Operaciones Financieras</td>
+                                    <td style="text-align: center;">14</td>
+                                    <td style="text-align: center;">4</td>
+                                    <td style="text-align: center;"><span style="color: var(--danger);">10</span></td>
+                                    <td style="text-align: center;">
+                                        <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                            <div class="progress-bar-container" style="width: 60px;">
+                                                <div class="progress-bar-fill red" style="width: 29%;"></div>
+                                            </div>
+                                            <span style="font-size: 11px; font-weight: 600; color: var(--danger);">29%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            SidebarModule.render('metricas');
+            SidebarModule.setupMobile();
+            
+            const commonOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { font: { size: 11 }, usePointStyle: true, padding: 16 }
+                    }
+                },
+                scales: {
+                    x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+                    y: { grid: { color: '#f3f4f6' }, ticks: { font: { size: 10 } } }
+                }
+            };
+            
+            // Tendencia Chart
+            new Chart(document.getElementById('tendenciaChart'), {
+                type: 'line',
+                data: {
+                    labels: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7'],
+                    datasets: [
+                        { label: 'Radicados', data: [5, 3, 4, 6, 5, 7, 18], borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)', fill: true, tension: 0.4, pointRadius: 3 },
+                        { label: 'Cerrados', data: [3, 2, 3, 4, 4, 5, 0], borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.1)', fill: true, tension: 0.4, pointRadius: 3 }
+                    ]
+                },
+                options: commonOptions
+            });
+            
+            // SLA por Prioridad
+            new Chart(document.getElementById('slaPrioridadChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Baja', 'Normal', 'Alta', 'Critica'],
+                    datasets: [{
+                        label: '% Cumplimiento',
+                        data: [100, 45, 25, 0],
+                        backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#ef4444'],
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    ...commonOptions,
+                    scales: {
+                        ...commonOptions.scales,
+                        y: { ...commonOptions.scales.y, max: 100, ticks: { callback: v => v + '%', font: { size: 10 } } }
+                    }
+                }
+            });
+            
+            // Productividad por Operador
+            new Chart(document.getElementById('productividadChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Valentina Ospina', 'Marcela Suarez', 'Carlos Andres', 'Hernando Jose', 'Patricia Ines', 'Beatriz Elena', 'Esperanza del', 'Rodrigo Esteban'],
+                    datasets: [
+                        { label: 'Cerrados', data: [11, 11, 7, 7, 7, 5, 5, 4], backgroundColor: '#3b82f6', borderRadius: 4 },
+                        { label: 'En Gestion', data: [0, 12, 16, 1, 2, 0, 7, 10], backgroundColor: '#93c5fd', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    ...commonOptions,
+                    indexAxis: 'y',
+                    scales: {
+                        x: { grid: { color: '#f3f4f6' }, ticks: { font: { size: 10 } } },
+                        y: { grid: { display: false }, ticks: { font: { size: 10 } } }
+                    }
+                }
+            });
+            
+            // Distribucion por Tipo (Doughnut)
+            new Chart(document.getElementById('distribucionChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Felicitacion', 'Peticion', 'Queja', 'Reclamo', 'Sugerencia'],
+                    datasets: [{
+                        data: [11, 24, 22, 135, 13],
+                        backgroundColor: ['#10b981', '#059669', '#047857', '#065f46', '#34d399'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: { font: { size: 11 }, usePointStyle: true, padding: 12 }
+                        }
+                    }
+                }
+            });
+            
+            // Distribucion por Estado (Horizontal bars)
+            new Chart(document.getElementById('estadoChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Radicado', 'Asignado', 'En Gestion', 'Pendiente de Informacion', 'Respondido', 'Cerrado', 'Reabierto', 'Anulado'],
+                    datasets: [{
+                        label: 'Casos',
+                        data: [12, 1, 55, 3, 50, 79, 4, 1],
+                        backgroundColor: ['#9ca3af', '#8b5cf6', '#3b82f6', '#f59e0b', '#10b981', '#6b7280', '#ef4444', '#d1d5db'],
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    ...commonOptions,
+                    indexAxis: 'y',
+                    scales: {
+                        x: { grid: { color: '#f3f4f6' }, ticks: { font: { size: 10 } } },
+                        y: { grid: { display: false }, ticks: { font: { size: 10 } } }
+                    }
+                }
+            });
+            
+            // Tiempo de Resolucion
+            new Chart(document.getElementById('resolucionChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7'],
+                    datasets: [{
+                        label: 'Horas promedio',
+                        data: [0, 1.2, 1.1, 1.0, 3.2, 0.8, 0.9],
+                        backgroundColor: '#3b82f6',
+                        borderRadius: 4
+                    }]
+                },
+                options: commonOptions
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bandeja de Casos - GestorFPQRS</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Overlay for mobile -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        
+        <!-- Mobile Toggle Button -->
+        <button class="sidebar-toggle" id="sidebarToggle" title="Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar"></aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="page-title-section">
+                    <h1>Bandeja de Casos</h1>
+                    <p>Gestion de casos FPQRS - Actualizado: 07/05/2026 00:18</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary btn-sm" id="btnExportarHeader">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Exportar
+                    </button>
+                    <button class="btn btn-secondary btn-sm" id="btnActualizarHeader">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                        Actualizar
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- KPI Cards -->
+                <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr);">
+                    <div class="kpi-card">
+                        <div class="kpi-card-header">
+                            <div class="kpi-icon blue">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="kpi-value" id="kpi-activos">125</div>
+                        <div class="kpi-label">Casos activos</div>
+                        <div class="kpi-sublabel">En proceso de gestion</div>
+                    </div>
+                    <div class="kpi-card" style="border-top: 3px solid var(--danger);">
+                        <div class="kpi-card-header">
+                            <div class="kpi-icon red">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                            </div>
+                        </div>
+                        <div class="kpi-value" id="kpi-vencidos" style="color: var(--danger);">111</div>
+                        <div class="kpi-label">SLA vencido</div>
+                        <div class="kpi-sublabel">Requieren atencion urgente</div>
+                    </div>
+                    <div class="kpi-card" style="border-top: 3px solid var(--warning);">
+                        <div class="kpi-card-header">
+                            <div class="kpi-icon yellow">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            </div>
+                        </div>
+                        <div class="kpi-value" id="kpi-proximos" style="color: var(--warning);">2</div>
+                        <div class="kpi-label">Proximos a vencer</div>
+                        <div class="kpi-sublabel">Vencen en las proximas 24 horas</div>
+                    </div>
+                    <div class="kpi-card" style="border-top: 3px solid var(--success);">
+                        <div class="kpi-card-header">
+                            <div class="kpi-icon green">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            </div>
+                        </div>
+                        <div class="kpi-value" id="kpi-cerrados" style="color: var(--success);">1</div>
+                        <div class="kpi-label">Cerrados hoy</div>
+                        <div class="kpi-sublabel">Resueltos en el dia</div>
+                    </div>
+                </div>
+                
+                <!-- Search and Filters -->
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-body">
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <div class="search-bar" style="flex: 1; max-width: 500px;">
+                                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                <input type="text" class="form-control" id="searchInput" placeholder="Buscar por radicado o nombre del asociado...">
+                            </div>
+                            <button class="btn btn-secondary btn-sm" style="margin-left: auto;" id="btnToggleFiltros">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                                Filtros
+                            </button>
+                        </div>
+
+                        <!-- Filtros Avanzados (Ocultos por defecto) -->
+                        <div id="filtrosAvanzados" style="display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-light);">
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label class="form-label" style="font-size: 11px;">Estado</label>
+                                    <select class="form-control" id="filterStatus">
+                                        <option value="">Todos</option>
+                                        <option value="Radicado">Radicado</option>
+                                        <option value="Asignado">Asignado</option>
+                                        <option value="En Gestión">En Gestión</option>
+                                        <option value="Respondido">Respondido</option>
+                                        <option value="Cerrado">Cerrado</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label class="form-label" style="font-size: 11px;">Tipo</label>
+                                    <select class="form-control" id="filterType">
+                                        <option value="">Todos</option>
+                                        <option value="Petición">Petición</option>
+                                        <option value="Queja">Queja</option>
+                                        <option value="Reclamo">Reclamo</option>
+                                        <option value="Sugerencia">Sugerencia</option>
+                                        <option value="Felicitación">Felicitación</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label class="form-label" style="font-size: 11px;">Prioridad</label>
+                                    <select class="form-control" id="filterPriority">
+                                        <option value="">Todas</option>
+                                        <option value="Baja">Baja</option>
+                                        <option value="Normal">Normal</option>
+                                        <option value="Alta">Alta</option>
+                                        <option value="Crítica">Crítica</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label class="form-label" style="font-size: 11px;">Servicio</label>
+                                    <select class="form-control" id="filterService">
+                                        <option value="">Todos</option>
+                                        <option value="Crédito">Crédito</option>
+                                        <option value="Ahorro y Captación">Ahorro y Captación</option>
+                                        <option value="Pagos y Transferencias">Pagos y Transferencias</option>
+                                        <option value="Canales Digitales">Canales Digitales</option>
+                                        <option value="Atención al Asociado">Atención al Asociado</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: flex-end; margin-top: 12px;">
+                                <button class="btn btn-secondary btn-sm" id="btnLimpiarFiltros" style="margin-right: 8px;">Limpiar</button>
+                                <button class="btn btn-primary btn-sm" id="btnAplicarFiltros">Aplicar Filtros</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cases Table -->
+                <div class="card">
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>RADICADO</th>
+                                    <th>FECHA RAD.</th>
+                                    <th>TIPO</th>
+                                    <th>SERVICIO</th>
+                                    <th>CATEGORIA</th>
+                                    <th>SUBCATEGORIA</th>
+                                    <th>ASOCIADO</th>
+                                    <th>RESPONSABLE</th>
+                                    <th>PRIORIDAD</th>
+                                    <th>ESTADO</th>
+                                    <th>LIMITE SLA</th>
+                                    <th>SEMAFORO</th>
+                                </tr>
+                            </thead>
+                            <tbody id="casesTbody">
+                                <tr><td colspan="12" style="text-align:center; padding:30px;">Cargando casos...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div style="padding: 12px 20px; border-top: 1px solid var(--border-light);">
+                        <div class="pagination-container">
+                            <span id="pagInfo">Mostrando 0 de 0 casos</span>
+                            <div style="display: flex; align-items: center; gap: 16px;">
+                                <select class="form-control" id="perPageSelect" style="width: auto; font-size: 12px; padding: 4px 24px 4px 8px;">
+                                    <option value="10">10 por pagina</option>
+                                    <option value="25">25 por pagina</option>
+                                    <option value="50">50 por pagina</option>
+                                </select>
+                                <div class="pagination" id="pagination">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="../js/store.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/app-casos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            SidebarModule.render('bandeja');
+            SidebarModule.setupMobile();
+        });
+    </script>
+</body>
+</html>
